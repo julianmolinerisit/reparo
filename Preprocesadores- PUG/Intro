@@ -1,0 +1,115 @@
+/* Los preprocesadores se utilizan para tener un codigo mas limpio cuando tenemos muchas hojas de estilo.
+
+  PRIORIDAD CSS:
+El CSS es un lenguaje en cascada, es decir siempre le da prioridad a lo que esta mas abajo. Si tenemos  
+ID = 100
+Clase = 10
+Etiquetas = 1
+!important = 1000000 (pero no se debe usar por nada)
+*/
+
+p{
+    color: white !important;
+}
+
+
+
+h1{
+    color: red;
+}
+
+y luego 
+
+h1{
+    color: white;
+}
+
+/* Saldra el h1 de color white. */
+
+
+/* TIPOS DE SELECTORES: */
+
+/* Selector universal */
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Selector de etiqueta */
+  p {
+    color: blue;
+  }
+  h1,h2,h3,h4,h5 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+  }
+  
+  /* Selector anidado (Para especificar selectores dentro de otros)*/
+  span {
+    color: black;
+  }
+  p span {
+    color: red;
+  }
+  
+  /* Selector de ID (Debe ser único en HTML, no se puede repetir)*/
+  #verde {
+    color: green;
+  }
+  
+  /* Selector de clase (Puede estar presente en varios elementos HTML, es el más usado) */
+  .verde {
+    color: green;
+  }
+  
+  /* Selector de hijos (Se aplica para hijos directos) */
+  p > span {
+    color: red;
+  }
+
+  span {
+    color: green;
+  }
+  
+  /* Selector adyacente (Se aplica si esta seguido del elemento especificado, en este caso se aplica el color rojo al elemento h2 si está después de otro elemento h2 y así sucesivamente se puede sumar más elementos) */
+  h2 {
+    color: black;
+  }
+  h2 + h2 {
+    color: red;
+  }
+  
+  /* Selector de aributos */
+  input[type='number'] {
+    border: black;
+  }
+
+  input[type='email'] {
+    border: red;
+  }
+
+Un proprocesador es una herramienta que nos permita escribir pseudocodigo que luego sera convertido a CSS o HTML standard.
+Ademas extiende el poder de css y html ya que nos permite agregar variables, funciones y mixins (son clases que ofrecen funciones 
+que pueden ser reutilizadas por otras clases pero que no esta pensada para usarse de forma autonoma). 
+Ejemplos: sass, stylus, less, pug, haml.
+
+Para trabajar con preprocesadores usamos la metodologia BEM ----- Significa Bloques, Elementos y modificadores.
+El objetivo es dividir logicamente las piezas de las que se compone una web.
+
+Bloques. Los bloques son nuestros contenedores más grandes que a su vez contienen elementos u otros bloques.
+
+Elementos. Los elementos siempre forman parte de un bloque, normalmente son los botones, textos, imágenes etc.
+
+Modificadores. Los modificadores se usan para establecer estilos diferentes a un mismo bloque o elemento.
+
+.bloque__element--modificador{}
+
+Ver graficos:
+images/graficobem.png
+images/graficobem2.svg
+images/graficobem3.png
+
+Recursos: https://getbem.com/introduction/
+
+Descarga preprocesador: https://prepros.io/
+

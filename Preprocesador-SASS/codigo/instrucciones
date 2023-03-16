@@ -1,0 +1,36 @@
+Respuesta a:
+Introducción a Sass
+Sass nos permite usar variables , reglas anidadas , mixins y funciones.
+La razón de que en SASS usemos la extensión ‘.scss’ es porque esta nos permite usar una sintaxis muy parecida a css.
+La otra opción es usar SASS con la extensión ‘.sass’ la única diferencia es que con esta extensión podremos omitir las llaves ‘{}’ y los punto y coma ‘;’ después de cada valor, esta sintaxis interpretará los atributos y valores por medio de la identación.
+
+Uso de variables:
+
+se declaran con $:
+$Fuente1:  'Lato', sans-serif;
+
+
+body {
+	margin: 0;
+	font-family: $Fuente1;
+}
+
+
+Se llama de la misma forma que se declara:  $Fuente1;
+
+Para copiar estilos entre dos elementos se usan los extends::after
+Para agregarlos ponemos @extend y el elemento
+.perfil__minibio{
+	margin: 0 auto;
+	padding-top: 20px;
+	h2{
+		@extend .perfil__nombre;
+	}
+	h3{
+		@extend .perfil__titulo;
+	}
+}
+
+
+Cuando modularizamos se pone in 
+_ adelante del nombre para que no lo compile.

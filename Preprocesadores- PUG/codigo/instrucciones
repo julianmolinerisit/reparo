@@ -1,0 +1,227 @@
+Primero agregamos en prepos el css y los assets necesarios.
+Creamos un nuevo archivo en visual studio: landing.pug
+Luego ya podemos empezar a trabajar. Para ver en vivo el avance podemos abrir en prepos
+Ver grafico: 
+images/liveprepos.png
+
+
+La sintaxis es simple:
+
+Se usa una sola etiqueta de apertura,
+los elementos que van dentro se infexan 
+por ejemplo 
+div
+  h1 Esto es un titulo 
+    p El contenido del articulo.
+    img aca va una imagen
+
+footer 
+  p aca el pie de pagina 
+
+  siempre se debe usar en todo el proyecto el tipo de espacio definido para infexar. 
+  Puede ser doble espacio o tab lo cambiamos de la siguiente manera: 
+
+  /images/Cambiarindexados.png
+
+
+  Si en un bloque solo hay un elemento en vez de hacer indentacion: 
+
+  div.intro__imagen
+    img(src="codigo/images/imagen.png")
+
+hacemos:
+  div
+  .intro__imagen: img(src="codigo/images/imagen.png")
+
+Es lo mismo.
+
+De esta manera podemos crear dos divs usando solo un div y luego con . poniendo las clases de los div que necesitemos:
+
+	div
+		.intro__imagen
+          img(src="images/imagen.png")
+	    .intro__contenido
+          p Hola
+
+
+Si ponemos un . al final del elemento podemos poner un . atras del elemento y luego podemos ponerlo abajo.
+
+p.
+Asi lo hacemos.
+
+
+Como usar VARIABLES en pug.
+
+Arriba de todo en la primer linea ponemos las variables:
+
+-var titulo = "Titulo que se repite"
+
+para invocarla:
+h2= titulo
+
+otra forma de invocarla:
+h2 #{titulo}
+
+Variables con varios datos (arreglos):
+
+-var titulos = ["Hola Como estas, Subtitulo 1, Subtitulo 2"]
+
+Para invocarla:
+h2 #{titulos[0]}
+h3 #{titulos[1]}
+h1 #{titulos[2]}
+
+Si queremos invocar solo alguna parte de la cadena:
+h2 #{titulos[0] [1]}
+En este caso de la variable 0 devuelve
+la primer palabra, es decir "hola"
+
+
+Loops 
+
+
+Primero necesitamos variables:
+
+-var titulos = ["Hola Como estas", "Subtitulo 1", "Subtitulo 2"]
+
+Para declarar el loop: se usa each, luego se crea una variable provicional donde metemos el loop "titulo". Luego especificamos de donde sacamos los datos con in, seguido de la variable declarada.
+
+    each titulo in titulos
+    
+Por ejemplo vamos a usar el loop en un li
+
+
+-var titulos = ["Hola Como estas", "Subtitulo 1", "Subtitulo 2"]
+
+    each titulo in titulos
+        li=titulo
+
+
+
+Condicionales
+
+-var usuario = "Julian"
+
+	h1 Platzi Games
+			if usuario
+				a Hola #{usuario}
+			else
+				a.boton(href="") Registro
+
+En este caso dice: si la variables usuario existe, mostrar hola "usuario". En caso de que no exista, 
+muestra el boton de registro.
+
+Mixins 
+
+Se crea en la parte de arriba en el mismo lugar de las variables:
+Primero escribimos mixin, luego se le da un nombre,
+en este caso "caja". Luego dentro del mixin ponemos lo que vamos a repetir en el codigo:
+mixin caja
+      .caja
+	    .caja__imagen: img(src="imagen/imagen.png")
+	    .caja__contenido 
+		    h3 #{titulos[1]}
+		    p lorempo eoddmp ispan monrls lodnsi 
+
+Luego para invocar el mixin ponemos + y el nombre del mixin en la parte del codigo que necesitemos.
+
++caja 			
+
+Mixin con variables:
+Primero declaramos las var necesarias al lado del mixin:
+
+mixin caja(imagen,titulo, contenido)
+      .caja
+	    .caja__imagen: img(src="imagen/"+imagen)
+	    .caja__contenido 
+		    h3=titulo
+            p=contenido
+		    
+Ahora ingresamos los datos entre comillas:
+
+	+caja("imagen.png", titulos[0], "Primer contenido loeem ipsum lord") 
+		+caja("imagen.png", titulos[1], "Segundo contenido loeem ipsum lord")
+
+
+
+        Recursos y documentacion pug:
+        https://pugjs.org/language/includes.html
+
+        https://pugjs.org/language/inheritance.html
+
+Vamos a mover la parte que no va a cambiar nunca, es decir lo que es parte del head. Lo vamos a pasar a otro archivo que se va a llamar head.pug que va a estar guardado en una carpeta "componentes" donde iran todos los componentes reutilizables de nuestro proyecto.
+
+
+Retiramos del codigo:
+
+
+
+lo pegamos en la carpeta de componentes
+y ahora lo incluimos en el landing.pug entre 
+el html y body con...
+
+include componentes/head.pug
+
+
+
+
+
+
+
+
+
+
+
+-var titulo = "Sub titulo principal"
+-var titulos = ["Titulo Principal","Subtitulo 1", "Subtitulo 2"]
+mixin caja(imagen,titulo, contenido)
+	.caja
+		.caja__imagen: img(src="images/"+imagen)
+		.caja__contenido 
+			h3=titulo
+			p=contenido
+			a.button Leer mas
+		
+		 
+doctype html
+html(lang="en")
+	include head.pug
+	body 
+		header
+			h1 Platzi Games
+			if usuario
+				a Hola #{usuario}
+			else
+				a.boton(href="") Registro
+	block contenidos  
+	//-esta linea se agrega siempre debajo de todo el header
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extend componentes/plantilla.pug
+block contenidos  
+<!--Para agregar la plantilla usamos el extend en vez del include y luego ponemos block y el nombre que le dimos, 
+en este caso contenidos.-->
+	section.intro 
+		div
+		.intro__imagen: img(src="images/imagen.png", alt="", srcset="")
+		.intro__contenido
+			h2 Titulo Pricipal
+			p lorem ipsun got inot init pomand.
+			span aca viene el contenido resaltado.
+			a.boton Leer mas.
+	main.contenido 
+		+caja("imagen.png", titulos[0], "Primer contenido loeem ipsum lord") 
+		+caja("imagen.png", titulos[1], "Segundo contenido loeem ipsum lord") 
+		+caja("imagen.png", titulos[2], "Tercero contenido loeem ipsum lord")

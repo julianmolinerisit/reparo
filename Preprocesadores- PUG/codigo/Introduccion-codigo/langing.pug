@@ -1,0 +1,14 @@
+extend componentes/plantilla.pug
+block contenidos  
+	section.intro 
+		div
+		.intro__imagen: img(src="images/imagen.png", alt="", srcset="")
+		.intro__contenido
+			h2 Titulo Pricipal
+			p lorem ipsun got inot init pomand.
+			span aca viene el contenido resaltado.
+			a.boton Leer mas.
+	main.contenido 
+		+caja("imagen.png", titulos[0], "Primer contenido loeem ipsum lord") 
+		+caja("imagen.png", titulos[1], "Segundo contenido loeem ipsum lord") 
+		+caja("imagen.png", titulos[2], "Tercero contenido loeem ipsum lord")

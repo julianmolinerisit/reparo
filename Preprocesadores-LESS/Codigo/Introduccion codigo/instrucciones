@@ -1,0 +1,136 @@
+Su estructura:
+
+.articulo--principal {
+    max-width: 660px;
+    margin: 0 auto;
+    h2{
+        margin: 40px 0 40px 0;
+        font-size: 50px;
+        text-align: center;
+    }
+    h3{
+        color: @color-secundario;
+        img{
+            width: 200px;
+            height: 200px;
+        }
+    }
+}
+
+
+Donde como base se toma el contendor padre.
+Luego se ingresan anidados los diferentes elementos y sus estilos.
+
+Las variables se crean asi:
+
+
+@color-secundario: #8841da;
+@color-variacion: #012179;
+@Fuente1: 'Lato', sans-serif;
+@Fuente2: 'Oswald', sans-serf;
+
+
+y se invocan:
+
+body {
+	margin: 0;
+	font-family: @Fuente1;
+	color: @color-primario;
+}
+
+
+
+
+Usar funciones:      
+
+Ejemplo:
+color: fade(@color-claro, 50%);
+
+
+&__categoria {
+    font-family: @Fuente2;
+    text-transform: uppercase;
+    color: fade(@color-claro, 50%);
+  }
+
+
+
+Podemos combinar operaciones aritmeticas en las funciones por ejemplo:
+
+Definimos un espaciado standar como variable:
+@fuente-base: 18px;
+
+
+Luego en el codigo:
+body {
+	margin: 0;
+	font-family: @Fuente1;
+	color: @color-primario;
+	line-height: @fuente-base + 10%;
+}
+
+Se define que todo el texto que este en el body 
+tenga un espacio de 18px + el 10% del tamaño del
+elemento.
+
+line-height: @fuente-base + 10%;
+
+
+Podemos crear mixins tambien para reutilizar codigo, para ello creamos en la zona de las 
+variables, Por ejemplo para hacer lo  mismo
+que hicimos arriba pero de forma mas correcta
+y sin errores podriamos crear el mixin llamado "fuente".
+
+.fuente(@font-size){
+	font-size: @font-size;
+	line-height: @font-size + 10%;
+}
+
+Donde incluye una variable, font-size
+que sera diferente en cada caso y a esta
+variable le agregara un interlineado del 10%. 
+
+Se incluye asi: .fuente(eltamaño);
+
+body {
+	margin: 0;
+	font-family: @Fuente1;
+	color: @color-primario;
+	.fuente(@fuente-base);
+}
+
+la variable se cambia dependiendo lo que se necesite:
+Por ejemplo: .fuente(50px);
+Le da un font-size de 50px.
+
+
+
+Otros ejemplos de mixins:
+
+.sombra-caja{
+    box-shadow: 0px 5px 15px 0px fade(@color-primario)
+    }
+
+Declaramos el mixin y luego lo 
+agregamos en todos los lugares 
+donde sale el mixin.
+
+se agrega asi: .sombra-caja;
+
+
+.intro {
+	width: 1340px;
+	height: 650px;
+	padding: 10px;
+	margin: 0 auto;
+	position: relative;
+    .sombra-caja;
+
+
+Los mixins van siempre despues de las variables:
+
+h3{
+    color: @color-secundario;
+    .intro;
+}
+
